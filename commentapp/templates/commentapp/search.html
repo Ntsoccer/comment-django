@@ -1,0 +1,38 @@
+{% extends 'commentapp/base.html' %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-11">
+        <br>
+        <h2>検索結果</h2>
+        <br>
+         {% for item in search_list %}
+        <div class="col-md-11 mx-auto">
+            <table class="table">
+                <thead>
+                    <tr>
+            <th width="100%"><a href="{% url 'commentapp:post_detail' item.id %}"><h4 class="comment-title">{{item.title}}</h4>
+                <small>&nbsp;&nbsp;&nbsp;by&nbsp;{{item.author}}</small>
+                <small class="h6">
+                {% if item.updated_at %}
+                    <p class="float-right" width="100%">{{item.updated_at}}<p>
+                {% else %}
+                    <p class="float-right" width="100%">{{item.created_at}}<p>
+                {% endif %}
+                </small>
+            </a></th>
+            </tr>
+            </thead>
+            <br>
+            </table>     
+            <p class="comment-text">{{item.content|safe|linebreaksbr|urlize}}</p>   
+            <hr>
+            <br>
+            <br>
+        </div>
+    {% endfor %}
+        </div>
+    </div>
+
+{% endblock content %}

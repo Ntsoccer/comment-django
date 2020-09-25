@@ -1,0 +1,29 @@
+{% extends 'commentapp/base.html' %}
+
+{% block content %}
+    <div class="container">  
+    <div class="row">
+    <div class="col-md-11 mx-auto">
+    <br>
+    <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th width="100%"><h4>{{object.title}}</h4><small class="h6">&nbsp;&nbsp;&nbsp;by&nbsp;{{object.author}}</small></th>
+                </tr>
+            </thead>
+        </table>            
+        <p class="comment-text">{{object.content|safe|linebreaksbr|urlize}}</p>   
+        <hr>
+        <br>
+        <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-outline-dark">戻る<a>
+        {% if object.author == request.user %}
+        <a href="{% url 'commentapp:post_update' object.id %}" class="btn btn-primary">編集<a>
+        <a href="{% url 'commentapp:post_delete' object.pk %}" class="btn btn-danger">削除<a>
+        {% endif %}
+        <br>
+        <br>
+    </div>
+    </div> 
+{% endblock content %}
+    

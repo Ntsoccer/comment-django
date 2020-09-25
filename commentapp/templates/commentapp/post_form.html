@@ -1,0 +1,31 @@
+{% extends 'commentapp/base.html' %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-9">
+        <br>
+        <h2>コメント登録・編集</h2>
+        <br>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>タイトル</label>
+                {{form.title}}
+            </div>
+            <br>
+            <div class="form-group">
+                <label>内容</label>
+                {{form.content}}
+            </div>
+            <br>
+            <button type="submit" class="btn aqua-gradient btn-rounded">コメントする</button>
+            <br>
+            <br>
+        </form>
+        </div>
+    </div>
+
+{% endblock content %}
+    

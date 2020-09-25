@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>コメント欄</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!--Navbar-->
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark primary-color fixed-top" role="navigation">
+
+  <!-- Navbar brand -->
+  <a class="navbar-brand" href="{% url 'commentapp:post_list' %}">Comment</a>
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/admin" target="_blank">管理画面へ</a>
+      </li>
+
+      <!-- Dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="account" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">Account</a>
+        <div class="dropdown-menu dropdown-primary" aria-labelledby="account">      
+          {% if request.user.is_authenticated %}
+            <a class="dropdown-item">{{ request.user }}</a>
+            <a class="dropdown-item" href="{% url 'commentapp:logout' %}">ログアウト</a>
+          {% else %}
+            <a class="dropdown-item" href="{% url 'commentapp:login' %}">ログイン</a>
+            <a class="dropdown-item" href="{% url 'commentapp:signup' %}">ユーザー登録</a>
+          {% endif %}
+        </div>
+      </li>
+
+    </ul>
+    <!-- Links -->
+
+    <form action="{% url 'commentapp:search' %}" class="form-inline my-1" method="POST">
+    {% csrf_token %}
+    <div class="md-form form-sm my-0">
+      <input class="form-control form-control-sm mr-sm-2 mb-0" type="search" placeholder="Search"
+        aria-label="Search" name="freeword">
+    </div>
+    <button class="btn btn-outline-white btn-sm my-0" type="submit">Search</button>
+  </form>
+  </div>
+  <!-- Collapsible content -->
+
+</nav>
+<!--/.Navbar-->
+<!--/.Navbar-->
+    <main class="container" style="padding-top:60px;">
+    {% if messages %}
+    <br>
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">
+          {{message}}
+        </div>  
+      {% endfor %} 
+    {% endif %}
+
+    {% block content %}        
+    {% endblock %}
+    </main>
+  <!-- /Start your project here-->
+
+  <!-- Footer -->
+<footer class="page-footer font-small blue">
+
+  <!-- Footer Elements -->
+  <div class="container">
+
+    <!-- Grid row-->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-12 py-5">
+        <div class="mb-5 flex-center">
+
+          <!-- Facebook -->
+          <a class="fb-ic" href="https://github.com/Ntsoccer">
+            <i class="fab fa-github fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <!-- Twitter -->
+          <a class="tw-ic" href="https://twitter.com/N_T_soccer0512">
+            <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+        </div>
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row-->
+
+  </div>
+  <!-- Footer Elements -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="/"> Takuya Nishimura</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+</body>
+
+</html>
